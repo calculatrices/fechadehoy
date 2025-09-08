@@ -1,0 +1,608 @@
+/* Reset and Base Styles */
+:root {
+    --primary: #1a237e; /* Deeper blue */
+    --secondary: #3f51b5; /* Rich indigo */
+    --accent: #ff4081; /* Vibrant pink */
+    --light: #f5f5f5; /* Lighter gray */
+
+    /* Add new color variables */
+    --gradient-start: #1a237e;
+    --gradient-end: #3f51b5;
+    --text-primary: #2c3e50;
+    --card-shadow: rgba(0, 0, 0, 0.12);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    color: var(--primary);
+    background-color: white; /* Default background */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
+}
+
+/* Header & Logo */
+.header {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    padding: 1rem;
+    color: white;
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Vertically align items */
+    justify-content: space-between; /* Space out logo block and toggle */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo svg {
+    width: 40px;
+    height: 40px;
+    animation: spin 20s linear infinite;
+}
+
+.logo h1 {
+    font-size: 1.5rem; /* Adjust heading size */
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Navigation */
+.nav {
+    background: var(--light);
+    padding: 1rem;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+    justify-content: center; /* Center nav items */
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens if needed */
+}
+
+.nav-item.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    z-index: 100;
+    padding: 0.5rem 0;
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.nav-link {
+    color: var(--primary);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.nav-link:hover {
+    background: var(--secondary);
+    color: white;
+}
+
+.dropdown-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: var(--primary);
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.dropdown-link:hover {
+    background: var(--secondary);
+    color: white;
+}
+
+/* Mobile Menu */
+.menu-toggle {
+    display: none; /* Hidden by default */
+    background: none;
+    border: none;
+    font-size: 1.8rem; /* Slightly larger */
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem; /* Add padding for easier tapping */
+    /* Removed margin-left: auto; handled by header flexbox */
+}
+
+/* Main Content */
+.main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.card {
+    position: relative;
+    overflow: hidden;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px var(--card-shadow);
+    padding: 1.5rem;
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s; /* Added background-color transition */
+    width: 100%;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--secondary), var(--accent));
+    transform: scaleX(0);
+    transform-origin: left; /* Animation starts from left */
+    transition: transform 0.4s ease; /* Slightly slower */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Specific card centering & Animations */
+.card-fecha,
+.card-calendario {
+    text-align: center; /* Center inline/inline-block children */
+}
+
+.card-fecha {
+    background: linear-gradient(45deg, #f6f8ff, #ffffff);
+    transition: background 0.5s ease;
+    animation: cardBackground 10s infinite alternate;
+}
+
+@keyframes cardBackground {
+    0% { background: linear-gradient(45deg, #f6f8ff, #ffffff); }
+    50% { background: linear-gradient(45deg, #e0e6ff, #f8faff); }
+    100% { background: linear-gradient(45deg, #d4deff, #ffffff); }
+}
+
+body.dark-mode .card-fecha {
+    background: linear-gradient(45deg, #2a2f4a, #3a3f5a);
+    animation: cardBackgroundDark 10s infinite alternate;
+}
+
+@keyframes cardBackgroundDark {
+    0% { background: linear-gradient(45deg, #2a2f4a, #3a3f5a); }
+    50% { background: linear-gradient(45deg, #3a405b, #4b506c); }
+    100% { background: linear-gradient(45deg, #4c5270, #5c627e); }
+}
+
+
+.card-calendario {
+    background: linear-gradient(135deg, #e0e4ff, #ffffff);
+    animation: cardGradient 10s ease infinite;
+}
+@keyframes cardGradient {
+    0% { background: linear-gradient(135deg, #e0e4ff, #ffffff); }
+    50% { background: linear-gradient(135deg, #d0d8ff, #f8faff); }
+    100% { background: linear-gradient(135deg, #c0caff, #ffffff); }
+}
+
+body.dark-mode .card-calendario {
+    background: linear-gradient(135deg, #3a3f5a, #2a2f4a);
+    animation: cardGradientDark 10s infinite alternate;
+}
+
+@keyframes cardGradientDark {
+    0% { background: linear-gradient(135deg, #3a3f5a, #2a2f4a); }
+    50% { background: linear-gradient(135deg, #4b506c, #3a405b); }
+    100% { background: linear-gradient(135deg, #5c627e, #4c5270); }
+}
+
+.current-time {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text;
+    background-clip: text; /* Standard property */
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+
+/* Calendar */
+.calendar-container { /* Container for horizontal scroll */
+    overflow-x: auto;
+    margin-top: 1rem;
+}
+
+.calendar {
+    border-collapse: collapse;
+    margin: 0 auto; /* Center the table block */
+    width: 100%; /* Make table take container width */
+    min-width: 300px; /* Minimum width before scroll kicks in */
+}
+
+.calendar th,
+.calendar td {
+    padding: 0.5rem;
+    text-align: center;
+    border: 1px solid #ddd;
+    min-width: 40px;
+}
+
+.calendar td {
+    transition: all 0.2s; /* Smooth transitions */
+}
+
+.calendar td.today {
+    background: var(--secondary);
+    color: white;
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+.calendar td.selected {
+    background: var(--accent);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.calendar td:not(:empty):hover { /* Added :not(:empty) */
+    background: var(--light);
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+/* FAQ Section */
+.faq-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+    text-align: left; /* Reset text-align for FAQ items */
+}
+
+.faq-item {
+    background: var(--light);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+    border-left: 4px solid var(--secondary); /* Add a subtle border */
+}
+
+.faq-item:hover {
+    transform: translateX(5px); /* Slightly reduced hover effect */
+    border-left-color: var(--accent);
+}
+
+.faq-item summary {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0.5rem 0; /* Adjusted padding */
+    color: var(--primary);
+    list-style: none; /* Remove default marker */
+    position: relative;
+    padding-left: 1.5rem; /* Space for custom marker */
+}
+.faq-item summary::-webkit-details-marker { display: none; } /* Hide default marker (Chrome/Safari) */
+.faq-item summary::before { /* Custom marker (closed) */
+    content: '+';
+    position: absolute;
+    left: 0;
+    font-size: 1.2em;
+    color: var(--secondary);
+    transition: transform 0.3s ease;
+}
+.faq-item[open] summary::before { /* Custom marker (open) */
+    content: '−'; /* Use minus sign */
+    transform: rotate(180deg); /* Optional: Rotate plus to look like x or keep as minus */
+    color: var(--accent);
+}
+
+.faq-item[open] summary {
+    margin-bottom: 1rem;
+    color: var(--accent);
+}
+
+.faq-item p {
+    padding: 0 0 0 1.5rem; /* Align text with summary */
+    line-height: 1.6;
+    color: var(--text-primary); /* Use text color variable */
+}
+
+/* Footer */
+.footer {
+    background: var(--primary);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, background-color 0.3s;
+    z-index: 1000;
+    width: 50px; /* Explicit size */
+    height: 50px; /* Explicit size */
+    display: flex; /* Center icons */
+    align-items: center;
+    justify-content: center;
+}
+.dark-mode-toggle svg {
+    width: 24px; /* Fixed icon size */
+    height: 24px;
+}
+
+/* Hide one icon based on mode */
+.dark-mode .dark-mode-toggle #theme-toggle-light-icon {
+    display: none;
+}
+.dark-mode .dark-mode-toggle #theme-toggle-dark-icon {
+    display: block !important; /* Ensure block display */
+}
+/* Light mode */
+body:not(.dark-mode) .dark-mode-toggle #theme-toggle-light-icon {
+    display: block;
+}
+body:not(.dark-mode) .dark-mode-toggle #theme-toggle-dark-icon {
+    display: none !important; /* Ensure none display */
+}
+
+.dark-mode-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* --- Dark Mode Styles --- */
+body.dark-mode {
+    background: #121212;
+    color: #e0e0e0; /* Lighter gray for main text */
+}
+
+body.dark-mode .header {
+    /* Optional: Adjust header gradient if needed for dark mode */
+}
+
+body.dark-mode .nav {
+    background: #1e1e1e;
+}
+
+body.dark-mode .nav-link {
+    color: #ffffff;
+}
+
+body.dark-mode .nav-link:hover {
+    background: var(--secondary); /* Keep hover effect */
+}
+
+body.dark-mode .dropdown-menu {
+    background: #2a2a2a;
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .dropdown-link {
+    color: #ffffff;
+}
+
+body.dark-mode .dropdown-link:hover {
+    background: var(--secondary);
+}
+
+body.dark-mode .card {
+    background: #1e1e1e;
+    color: #e0e0e0;
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode .card::before {
+     /* Keep the accent gradient */
+}
+
+body.dark-mode .current-time {
+    background: linear-gradient(135deg, #8c9eff, #ff80ab); /* Lighter gradient for dark mode */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Dark mode calendar */
+body.dark-mode .calendar th,
+body.dark-mode .calendar td {
+    border-color: #444;
+    color: #ccc;
+}
+
+body.dark-mode .calendar td.today {
+    background: var(--secondary); /* Keep today highlight */
+    color: white;
+}
+
+body.dark-mode .calendar td.selected {
+    background: var(--accent); /* Keep selected highlight */
+    color: white;
+}
+
+body.dark-mode .calendar td:not(:empty):hover {
+    background: #333;
+    color: white; /* Ensure text is visible on hover */
+}
+
+/* Dark mode FAQ */
+body.dark-mode .faq-item {
+    background: #2a2a2a;
+    color: #e0e0e0;
+    border-left-color: #555; /* Darker border */
+}
+body.dark-mode .faq-item:hover {
+    border-left-color: var(--accent);
+}
+
+body.dark-mode .faq-item summary {
+    color: #ffffff;
+}
+body.dark-mode .faq-item summary::before {
+    color: #8c9eff; /* Lighter color for marker */
+}
+body.dark-mode .faq-item[open] summary {
+    color: var(--accent);
+}
+body.dark-mode .faq-item[open] summary::before {
+    color: var(--accent);
+}
+
+body.dark-mode .faq-item p {
+    color: #ccc; /* Lighter text for paragraphs */
+}
+
+body.dark-mode .footer {
+    background: #1e1e1e; /* Darker footer */
+}
+
+body.dark-mode .dark-mode-toggle {
+    background: #333; /* Darker toggle button */
+    color: white;
+}
+
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .header {
+        padding: 0.8rem 1rem; /* Adjust padding */
+    }
+    .logo svg {
+        width: 35px; /* Slightly smaller logo */
+        height: 35px;
+    }
+    .logo h1 {
+        font-size: 1.3rem; /* Smaller title */
+    }
+
+    .menu-toggle {
+        display: block; /* Show hamburger */
+    }
+
+    .nav {
+        padding: 0; /* Remove padding as list handles it */
+        position: relative; /* Needed for absolute positioning of list */
+    }
+
+    .nav-list {
+        display: none; /* Hide list by default */
+        flex-direction: column;
+        position: absolute; /* Position it absolutely */
+        top: 100%; /* Position below the nav bar */
+        left: 0;
+        width: 100%;
+        background: var(--light); /* Give it a background */
+        padding: 1rem 0; /* Add vertical padding */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 999; /* Ensure it's above main content */
+        border-top: 1px solid #ddd; /* Separator */
+    }
+
+    .nav-list.active {
+        display: flex; /* Show when active */
+    }
+
+    .nav-item {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-link {
+        display: block; /* Make links take full width */
+        padding: 1rem; /* Larger tap target */
+        border-bottom: 1px solid #eee; /* Separators */
+    }
+    .nav-item:last-child .nav-link {
+        border-bottom: none; /* Remove last border */
+    }
+
+    /* Dark mode mobile nav */
+    body.dark-mode .nav-list {
+        background: #1e1e1e;
+        border-top-color: #333;
+    }
+    body.dark-mode .nav-link {
+        color: #ffffff;
+        border-bottom-color: #333;
+    }
+    body.dark-mode .nav-link:hover {
+        background: var(--secondary);
+    }
+
+    .main {
+        padding: 1rem; /* Reduce padding on smaller screens */
+    }
+
+    .card {
+        padding: 1rem; /* Reduce card padding */
+    }
+
+    .calendar th,
+    .calendar td {
+        padding: 0.4rem 0.2rem; /* Reduce padding further */
+        min-width: 30px; /* Allow slightly smaller cells */
+        font-size: 0.85em; /* Smaller font */
+    }
+
+    .current-time {
+        font-size: 1.5rem; /* Adjust font size */
+    }
+
+    .dark-mode-toggle {
+        bottom: 1rem;
+        right: 1rem;
+        padding: 0.8rem;
+        width: 45px; /* Smaller toggle */
+        height: 45px;
+    }
+     .dark-mode-toggle svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .faq-item summary {
+    }
+}
