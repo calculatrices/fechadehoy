@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional News Cover Generator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#7a0000,#1a0000);
+  color:white;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:20px;
+}
+h1{margin-bottom:20px}
+.container{
+  display:flex;
+  flex-wrap:wrap;
+  gap:30px;
+  width:100%;
+  max-width:1200px;
+}
+.controls{
+  flex:1;
+  min-width:300px;
+  background:rgba(255,255,255,0.08);
+  padding:20px;
+  border-radius:20px;
+  backdrop-filter:blur(10px);
+}
+.controls label{font-size:14px}
+.controls input, .controls textarea{
+  width:100%;
+  padding:10px;
+  margin:6px 0 15px;
+  border:none;
+  border-radius:10px;
+  font-family:'Poppins',sans-serif;
+}
+.controls textarea{resize:none;height:70px}
+button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:15px;
+  background:#ff1e1e;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+button:hover{background:#cc0000}
+.preview{
+  flex:1;
+  display:flex;
+  justify-content:center;
+}
+#cover{
+  width:400px;
+  height:600px;
+  background:linear-gradient(180deg,#b30000,#330000);
+  border-radius:25px;
+  padding:15px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 20px 40px rgba(0,0,0,.6);
+}
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.top img{height:45px}
+.date{
+  background:black;
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:12px;
+}
+.image-box{
+  height:280px;
+  margin:15px 0;
+  background:rgba(0,0,0,.3);
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  position:relative;
+}
+.image-box span{position:absolute;opacity:.7}
+.image-box img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.headline{
+  background:black;
+  padding:18px;
+  border-radius:20px;
+}
+.headline h2{margin:0;font-size:22px;font-weight:700}
+.headline p{margin-top:8px;font-size:14px;opacity:.85}
+.footer{
+  position:absolute;
+  bottom:12px;
+  right:18px;
+  font-size:12px;
+  opacity:.6;
+}
+</style>
+</head>
+<body>
+<h1>Professional News Cover Generator</h1>
+<div class="container">
+
+<div class="controls">
+<label>Upload Logo</label>
+<input type="file" id="logoInput" accept="image/*">
+
+<label>Upload Main Image</label>
+<input type="file" id="mainImageInput" accept="image/*">
+
+<label>Date</label>
+<input type="text" id="dateInput" placeholder="Enter Date">
+
+<label>Headline</label>
+<textarea id="headlineInput" placeholder="Enter Headline"></textarea>
+
+<label>Subtext</label>
+<textarea id="subtextInput" placeholder="Enter Subtext"></textarea>
+
+<button type="button" onclick="downloadCover()">Download Cover</button>
+</div>
+
+<div class="preview">
+<div id="cover">
+
+<div class="top">
+<img id="logoPreview" />
+<div class="date" id="datePreview">Date Here</div>
+</div>
+
+<div class="image-box">
+<span id="imageText">Image Here</span>
+<img id="mainImagePreview" />
+</div>
+
+<div class="headline">
+<h2 id="headlinePreview">Headline Here</h2>
+<p id="subtextPreview">Subtext Here</p>
+</div>
+
+<div class="footer">yourwebsite.com</div>
+
+</div>
+</div>
+
+</div>
+
+<script>
+function readImage(input, targetId, hideTextId){
+  if(!input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    document.getElementById(targetId).src = e.target.result;
+    if(hideTextId) document.getElementById(hideTextId).style.display='none';
+  }
+  reader.readAsDataURL(input.files[0]);
+}
+
+document.getElementById('logoInput').addEventListener('change',function(){
+  readImage(this,'logoPreview');
+});
+
+document.getElementById('mainImageInput').addEventListener('change',function(){
+  readImage(this,'mainImagePreview','imageText');
+});
+
+document.getElementById('dateInput').addEventListener('input',function(){
+  document.getElementById('datePreview').innerText = this.value || 'Date Here';
+});
+
+document.getElementById('headlineInput').addEventListener('input',function(){
+  document.getElementById('headlinePreview').innerText = this.value || 'Headline Here';
+});
+
+document.getElementById('subtextInput').addEventListener('input',function(){
+  document.getElementById('subtextPreview').innerText = this.value || 'Subtext Here';
+});
+
+function downloadCover(){
+  html2canvas(document.getElementById('cover'),{scale:2}).then(function(canvas){
+    const link = document.createElement('a');
+    link.download = 'news-cover.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+}
+</script>
+
+</body>
+</html>
