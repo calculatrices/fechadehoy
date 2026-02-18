@@ -3,99 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ultimate Breaking News Generator PRO</title>
+<title>Ultimate Breaking News PRO+</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800;900&family=Teko:wght@600;700&family=Anton&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Teko:wght@600;700&family=Anton&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0b0b0b;font-family:'Poppins',sans-serif;color:#fff;padding:30px}
 .wrapper{display:flex;gap:40px;max-width:1700px;margin:auto}
 
 /* LEFT PANEL */
-.panel{
- width:430px;
- background:#141414;
- padding:30px;
- border-radius:25px;
- box-shadow:0 0 50px rgba(255,0,0,.3);
-}
+.panel{width:430px;background:#141414;padding:30px;border-radius:25px;box-shadow:0 0 50px rgba(255,0,0,.3)}
 .panel h2{margin-bottom:25px;font-size:26px;font-weight:900}
 .panel label{font-size:14px;opacity:.8}
 .panel input,.panel textarea,.panel select{
  width:100%;padding:12px;margin:8px 0 18px;border-radius:12px;border:none;
  background:#222;color:#fff;font-family:'Poppins'
 }
-.panel textarea{height:80px;resize:none}
-.panel button{
- width:100%;padding:15px;border:none;border-radius:15px;
- background:linear-gradient(90deg,#ff0000,#b80000);
- font-weight:800;color:#fff;font-size:16px;cursor:pointer;
- box-shadow:0 15px 40px rgba(255,0,0,.6)
-}
+.panel textarea{height:90px;resize:none}
+.panel button{width:100%;padding:15px;border:none;border-radius:15px;background:linear-gradient(90deg,#ff0000,#b80000);font-weight:800;color:#fff;font-size:16px;cursor:pointer}
 
 /* PREVIEW */
 .preview-area{flex:1;display:flex;justify-content:center}
-#banner{
- width:750px;
- height:1000px;
- background:radial-gradient(circle at top,#ff2a2a,#4a0000);
- background-size:cover;
- background-position:center;
- border-radius:35px;
- padding:40px;
- position:relative;
- overflow:hidden;
- box-shadow:0 50px 120px rgba(255,0,0,.6);
-}
+#banner{width:750px;height:1000px;background:radial-gradient(circle at top,#ff2a2a,#4a0000);border-radius:35px;padding:40px;position:relative;overflow:hidden}
 
 /* HEADER */
 .breaking-header{display:flex;align-items:center;margin-bottom:20px}
 .logo-box{width:90px;height:90px;background:#ff0000;display:flex;align-items:center;justify-content:center;margin-right:15px}
 .logo-box img{max-width:80px}
-.breaking-title{
- flex:1;background:linear-gradient(90deg,#111,#ff0000);
- padding:20px 30px;font-size:32px;font-weight:900;
-}
-.date-pill{
- position:absolute;top:50px;right:45px;
- background:#ff0000;padding:10px 25px;border-radius:30px;
- font-weight:800;font-size:18px;
-}
+.breaking-title{flex:1;background:linear-gradient(90deg,#111,#ff0000);padding:20px 30px;font-size:32px;font-weight:900}
+.date-pill{position:absolute;top:50px;right:45px;background:#ff0000;padding:10px 25px;border-radius:30px;font-weight:800;font-size:18px}
 
 /* IMAGE */
-.image-frame{
- margin-top:80px;height:450px;border:8px solid #fff;
- border-radius:20px;overflow:hidden;position:relative
-}
+.image-frame{margin-top:80px;height:450px;border:8px solid #fff;border-radius:20px;overflow:hidden;position:relative}
 .image-frame img{width:100%;height:100%;object-fit:cover}
 .image-placeholder{position:absolute;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;opacity:.5}
 
 /* HEADLINE */
-.headline-section{
- margin-top:50px;padding:35px;border-radius:25px;
- background:linear-gradient(90deg,#8b0000,#ff0000,#8b0000);
-}
-.headline-section h1{font-size:42px;font-weight:900;text-transform:uppercase;transition:.3s}
-.subtext{margin-top:18px;background:#222;padding:14px;border-radius:15px;font-size:20px}
+.headline-section{margin-top:50px;padding:35px;border-radius:25px;background:linear-gradient(90deg,#8b0000,#ff0000,#8b0000)}
 
-/* SUBTITLE BUTTON */
-.subtitle-btn{
+/* AUTO 3 COLOR GRADIENT HEADLINE */
+.headline-section h1{
+ font-size:42px;
+ font-weight:900;
+ text-transform:uppercase;
+ line-height:1.2;
+ word-break:break-word;
+ background:linear-gradient(90deg,#ffffff,#ffeb3b,#00ffff);
+ -webkit-background-clip:text;
+ -webkit-text-fill-color:transparent;
+}
+
+/* SINGLE LINE SUBTITLE + WEBSITE */
+.bottom-line{
  margin-top:20px;
- display:inline-block;
- background:linear-gradient(90deg,#ff9900,#ff0000);
- padding:12px 25px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ background:#1c1c1c;
+ padding:12px 18px;
  border-radius:30px;
- font-weight:800;
+ font-size:18px;
 }
 
-/* WEBSITE LOWER POSITION */
-.website{
- position:absolute;
- bottom:25px; /* moved lower */
- right:45px;
- font-size:22px;
- font-weight:700;
-}
+.subtitle-text{font-weight:700}
+.website{font-weight:700}
+
 </style>
 </head>
 <body>
@@ -103,17 +75,10 @@ body{background:#0b0b0b;font-family:'Poppins',sans-serif;color:#fff;padding:30px
 <div class="wrapper">
 
 <div class="panel">
-<h2>Ultimate Breaking News PRO</h2>
+<h2>Breaking News PRO+</h2>
 
-<label>Background Image Upload</label>
+<label>Background Image</label>
 <input type="file" id="bgInput" accept="image/*">
-
-<label>Background Preset</label>
-<select id="bgPreset">
-<option value="red">Default Red</option>
-<option value="dark">Dark Studio</option>
-<option value="fire">Fire Red</option>
-</select>
 
 <label>Upload Logo</label>
 <input type="file" id="logoInput" accept="image/*">
@@ -129,22 +94,13 @@ body{background:#0b0b0b;font-family:'Poppins',sans-serif;color:#fff;padding:30px
 
 <label>Headline Font Style</label>
 <select id="headlineStyle">
-<option value="poppins">Poppins Bold</option>
+<option value="poppins">Poppins</option>
 <option value="teko">Teko</option>
-<option value="anton">Anton Heavy</option>
+<option value="anton">Anton</option>
+<option value="oswald">Oswald</option>
 </select>
 
-<label>Headline Color</label>
-<select id="headlineColor">
-<option value="#ffffff">White</option>
-<option value="#ffeb3b">Yellow</option>
-<option value="#00ffff">Cyan</option>
-</select>
-
-<label>Subtext</label>
-<textarea id="subtextInput"></textarea>
-
-<label>Subtitle Button Text</label>
+<label>Subtitle Text</label>
 <input type="text" id="subtitleInput" value="বিস্তারিত কমেন্টে">
 
 <label>Website</label>
@@ -170,11 +126,13 @@ body{background:#0b0b0b;font-family:'Poppins',sans-serif;color:#fff;padding:30px
 
 <div class="headline-section">
 <h1 id="headlinePreview">HEADLINE HERE</h1>
-<div class="subtext" id="subtextPreview">SUBTEXT HERE</div>
-<div class="subtitle-btn" id="subtitleBtn">বিস্তারিত কমেন্টে</div>
+
+<div class="bottom-line">
+<span class="subtitle-text" id="subtitlePreview">বিস্তারিত কমেন্টে</span>
+<span class="website" id="websitePreview">area71.com</span>
 </div>
 
-<div class="website" id="websitePreview">area71.com</div>
+</div>
 
 </div>
 </div>
@@ -199,35 +157,25 @@ bgInput.onchange=function(){
  reader.readAsDataURL(this.files[0]);
 }
 
-bgPreset.onchange=function(){
- if(this.value==='red') banner.style.background='radial-gradient(circle at top,#ff2a2a,#4a0000)';
- if(this.value==='dark') banner.style.background='linear-gradient(180deg,#111,#330000)';
- if(this.value==='fire') banner.style.background='linear-gradient(180deg,#ff0000,#ff6600,#660000)';
-}
-
 logoInput.onchange=()=>loadImage(logoInput,'logoPreview');
 mainImageInput.onchange=()=>loadImage(mainImageInput,'mainImagePreview','imageText');
 
 dateInput.oninput=()=>datePreview.innerText=dateInput.value||'DATE HERE';
 headlineInput.oninput=()=>headlinePreview.innerText=headlineInput.value||'HEADLINE HERE';
-subtextInput.oninput=()=>subtextPreview.innerText=subtextInput.value||'SUBTEXT HERE';
-subtitleInput.oninput=()=>subtitleBtn.innerText=subtitleInput.value||'বিস্তারিত কমেন্টে';
+subtitleInput.oninput=()=>subtitlePreview.innerText=subtitleInput.value||'বিস্তারিত কমেন্টে';
 websiteInput.oninput=()=>websitePreview.innerText=websiteInput.value||'area71.com';
 
 headlineStyle.onchange=function(){
  if(this.value==='teko') headlinePreview.style.fontFamily='Teko';
  else if(this.value==='anton') headlinePreview.style.fontFamily='Anton';
+ else if(this.value==='oswald') headlinePreview.style.fontFamily='Oswald';
  else headlinePreview.style.fontFamily='Poppins';
-}
-
-headlineColor.onchange=function(){
- headlinePreview.style.color=this.value;
 }
 
 function downloadBanner(){
  html2canvas(document.getElementById('banner'),{scale:4,useCORS:true}).then(canvas=>{
   const link=document.createElement('a');
-  link.download='ultimate-breaking-news-pro.png';
+  link.download='breaking-news-pro-plus.png';
   link.href=canvas.toDataURL('image/png');
   link.click();
  });
