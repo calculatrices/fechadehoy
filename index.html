@@ -3,121 +3,139 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Professional News Cover Generator</title>
+<title>Advanced HD News Banner Generator</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 body{
-  margin:0;
   font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#7a0000,#1a0000);
-  color:white;
+  background:#111;
   display:flex;
   flex-direction:column;
   align-items:center;
   padding:20px;
+  color:#fff;
 }
-h1{margin-bottom:20px}
+h1{margin-bottom:20px;font-weight:800}
 .container{
   display:flex;
   flex-wrap:wrap;
   gap:30px;
+  max-width:1300px;
   width:100%;
-  max-width:1200px;
 }
 .controls{
   flex:1;
-  min-width:300px;
-  background:rgba(255,255,255,0.08);
-  padding:20px;
+  min-width:320px;
+  background:#1c1c1c;
+  padding:25px;
   border-radius:20px;
-  backdrop-filter:blur(10px);
 }
-.controls label{font-size:14px}
+.controls label{font-size:14px;opacity:.8}
 .controls input, .controls textarea{
   width:100%;
-  padding:10px;
-  margin:6px 0 15px;
+  padding:12px;
+  margin:6px 0 18px;
   border:none;
   border-radius:10px;
   font-family:'Poppins',sans-serif;
 }
-.controls textarea{resize:none;height:70px}
+.controls textarea{resize:none;height:80px}
 button{
   width:100%;
-  padding:12px;
+  padding:14px;
   border:none;
-  border-radius:15px;
-  background:#ff1e1e;
+  border-radius:12px;
+  background:#e10600;
   color:white;
-  font-weight:600;
+  font-weight:700;
   cursor:pointer;
-  transition:.3s;
+  font-size:15px;
 }
-button:hover{background:#cc0000}
+button:hover{background:#b80000}
 .preview{
   flex:1;
   display:flex;
   justify-content:center;
 }
+
+/* EXACT BANNER SIZE 1080x1350 */
 #cover{
-  width:400px;
-  height:600px;
+  width:540px;
+  height:675px;
   background:linear-gradient(180deg,#b30000,#330000);
-  border-radius:25px;
-  padding:15px;
+  border-radius:30px;
+  padding:25px;
   position:relative;
   overflow:hidden;
-  box-shadow:0 20px 40px rgba(0,0,0,.6);
+  box-shadow:0 30px 60px rgba(0,0,0,.6);
 }
+
 .top{
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
-.top img{height:45px}
+.top img{height:60px}
 .date{
-  background:black;
-  padding:6px 12px;
-  border-radius:20px;
-  font-size:12px;
+  background:#000;
+  padding:8px 16px;
+  border-radius:25px;
+  font-size:14px;
+  font-weight:600;
 }
+
 .image-box{
-  height:280px;
-  margin:15px 0;
-  background:rgba(0,0,0,.3);
-  border-radius:20px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  height:360px;
+  margin:25px 0;
+  background:#222;
+  border-radius:25px;
   overflow:hidden;
   position:relative;
 }
-.image-box span{position:absolute;opacity:.7}
 .image-box img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
-.headline{
-  background:black;
-  padding:18px;
-  border-radius:20px;
-}
-.headline h2{margin:0;font-size:22px;font-weight:700}
-.headline p{margin-top:8px;font-size:14px;opacity:.85}
-.footer{
+.image-placeholder{
   position:absolute;
-  bottom:12px;
-  right:18px;
-  font-size:12px;
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:.6;
+}
+
+.headline-box{
+  background:#000;
+  padding:25px;
+  border-radius:25px;
+}
+.headline-box h2{
+  font-size:28px;
+  font-weight:800;
+  line-height:1.2;
+}
+.headline-box p{
+  margin-top:12px;
+  font-size:16px;
+  opacity:.9;
+}
+
+.watermark{
+  position:absolute;
+  bottom:18px;
+  right:25px;
+  font-size:14px;
   opacity:.6;
 }
 </style>
 </head>
 <body>
-<h1>Professional News Cover Generator</h1>
+<h1>Advanced HD News Banner Generator</h1>
 <div class="container">
 
 <div class="controls">
@@ -136,7 +154,10 @@ button:hover{background:#cc0000}
 <label>Subtext</label>
 <textarea id="subtextInput" placeholder="Enter Subtext"></textarea>
 
-<button type="button" onclick="downloadCover()">Download Cover</button>
+<label>Website (Optional)</label>
+<input type="text" id="websiteInput" placeholder="Enter website name">
+
+<button type="button" onclick="downloadCover()">Download HD Banner</button>
 </div>
 
 <div class="preview">
@@ -148,16 +169,16 @@ button:hover{background:#cc0000}
 </div>
 
 <div class="image-box">
-<span id="imageText">Image Here</span>
+<div class="image-placeholder" id="imageText">Your Image Here</div>
 <img id="mainImagePreview" />
 </div>
 
-<div class="headline">
+<div class="headline-box">
 <h2 id="headlinePreview">Headline Here</h2>
 <p id="subtextPreview">Subtext Here</p>
 </div>
 
-<div class="footer">yourwebsite.com</div>
+<div class="watermark" id="websitePreview"></div>
 
 </div>
 </div>
@@ -165,41 +186,32 @@ button:hover{background:#cc0000}
 </div>
 
 <script>
-function readImage(input, targetId, hideTextId){
+function readImage(input, targetId, hideId){
   if(!input.files[0]) return;
-  const reader = new FileReader();
-  reader.onload = function(e){
-    document.getElementById(targetId).src = e.target.result;
-    if(hideTextId) document.getElementById(hideTextId).style.display='none';
+  const reader=new FileReader();
+  reader.onload=function(e){
+    document.getElementById(targetId).src=e.target.result;
+    if(hideId) document.getElementById(hideId).style.display='none';
   }
   reader.readAsDataURL(input.files[0]);
 }
 
-document.getElementById('logoInput').addEventListener('change',function(){
-  readImage(this,'logoPreview');
-});
+logoInput.onchange=function(){readImage(this,'logoPreview');}
+mainImageInput.onchange=function(){readImage(this,'mainImagePreview','imageText');}
 
-document.getElementById('mainImageInput').addEventListener('change',function(){
-  readImage(this,'mainImagePreview','imageText');
-});
-
-document.getElementById('dateInput').addEventListener('input',function(){
-  document.getElementById('datePreview').innerText = this.value || 'Date Here';
-});
-
-document.getElementById('headlineInput').addEventListener('input',function(){
-  document.getElementById('headlinePreview').innerText = this.value || 'Headline Here';
-});
-
-document.getElementById('subtextInput').addEventListener('input',function(){
-  document.getElementById('subtextPreview').innerText = this.value || 'Subtext Here';
-});
+dateInput.oninput=function(){datePreview.innerText=this.value||'Date Here';}
+headlineInput.oninput=function(){headlinePreview.innerText=this.value||'Headline Here';}
+subtextInput.oninput=function(){subtextPreview.innerText=this.value||'Subtext Here';}
+websiteInput.oninput=function(){websitePreview.innerText=this.value;}
 
 function downloadCover(){
-  html2canvas(document.getElementById('cover'),{scale:2}).then(function(canvas){
-    const link = document.createElement('a');
-    link.download = 'news-cover.png';
-    link.href = canvas.toDataURL('image/png');
+  html2canvas(document.getElementById('cover'),{
+    scale:3,
+    useCORS:true
+  }).then(function(canvas){
+    const link=document.createElement('a');
+    link.download='news-banner-hd.png';
+    link.href=canvas.toDataURL('image/png');
     link.click();
   });
 }
