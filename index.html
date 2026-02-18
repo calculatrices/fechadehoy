@@ -1,175 +1,209 @@
-<html lang="es">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fecha de hoy - Qué día es hoy</title>
-    <meta http-equiv="Content-Language" content="es">
-    <meta name="description" content="Descubre la fecha actual. Consulta qué día es hoy y obtén la información precisa que necesitas al instante.">
-    <meta name="keywords" content="Fecha de hoy, Qué día es hoy, fecha actual, que fecha es hoy, fecha actual, a cuánto estamos, qué fecha es hoy, hoy estamos, que número es hoy">
-    <link rel="canonical" href="https://fechadehoy.net/">
-    <meta name="robots" content="index, follow">
-    <link rel="stylesheet" href="/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.1/build/global/luxon.min.js"></script>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23008000' stroke='black' stroke-width='2'/><line x1='50' y1='50' x2='50' y2='20' stroke='white' stroke-width='4' stroke-linecap='round'/><line x1='50' y1='50' x2='70' y2='50' stroke='white' stroke-width='4' stroke-linecap='round'/></svg>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional News Cover Generator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#7a0000,#1a0000);
+  color:white;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:20px;
+}
+h1{margin-bottom:20px}
+.container{
+  display:flex;
+  flex-wrap:wrap;
+  gap:30px;
+  width:100%;
+  max-width:1200px;
+}
+.controls{
+  flex:1;
+  min-width:300px;
+  background:rgba(255,255,255,0.08);
+  padding:20px;
+  border-radius:20px;
+  backdrop-filter:blur(10px);
+}
+.controls label{font-size:14px}
+.controls input, .controls textarea{
+  width:100%;
+  padding:10px;
+  margin:6px 0 15px;
+  border:none;
+  border-radius:10px;
+  font-family:'Poppins',sans-serif;
+}
+.controls textarea{resize:none;height:70px}
+button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:15px;
+  background:#ff1e1e;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+button:hover{background:#cc0000}
+.preview{
+  flex:1;
+  display:flex;
+  justify-content:center;
+}
+#cover{
+  width:400px;
+  height:600px;
+  background:linear-gradient(180deg,#b30000,#330000);
+  border-radius:25px;
+  padding:15px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 20px 40px rgba(0,0,0,.6);
+}
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.top img{height:45px}
+.date{
+  background:black;
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:12px;
+}
+.image-box{
+  height:280px;
+  margin:15px 0;
+  background:rgba(0,0,0,.3);
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  position:relative;
+}
+.image-box span{position:absolute;opacity:.7}
+.image-box img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.headline{
+  background:black;
+  padding:18px;
+  border-radius:20px;
+}
+.headline h2{margin:0;font-size:22px;font-weight:700}
+.headline p{margin-top:8px;font-size:14px;opacity:.85}
+.footer{
+  position:absolute;
+  bottom:12px;
+  right:18px;
+  font-size:12px;
+  opacity:.6;
+}
+</style>
 </head>
-
 <body>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Fecha de hoy - Qué día es hoy",
-      "description": "Descubre la fecha de hoy y qué día es hoy. Consulta fácilmente la fecha actual y el día de la semana para estar siempre al tanto.",
-      "url": "https://fechadehoy.net/",
-      "datePublished": "2024-01-01T00:00:00+00:00",
-      "dateModified": "2024-10-26T00:00:00+00:00",
-      "inLanguage": "es"
-    }
-    </script>
+<h1>Professional News Cover Generator</h1>
+<div class="container">
 
-    <header class="header">
-        <div class="logo">
-            <svg viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="5"></circle>
-                <line x1="50" y1="50" x2="50" y2="20" stroke="white" stroke-width="5"></line>
-                <line x1="50" y1="50" x2="70" y2="50" stroke="white" stroke-width="5"></line>
-            </svg>
-            <h1>Fecha de hoy</h1>
-            <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
-        </div>
-    </header>
+<div class="controls">
+<label>Upload Logo</label>
+<input type="file" id="logoInput" accept="image/*">
 
-    <nav class="nav">
-        <ul class="nav-list" id="navList">
-            <li><a href="https://fechadehoy.net/" class="nav-link">Hogar</a></li>
-            <li><a href="/politica-de-privacidad.html" class="nav-link">Política de Privacidad y Contacto</a></li>
-        </ul>
-    </nav>
-    <main class="main">
-        <div class="card card-fecha">
-            <h2>Fecha de hoy</h2>
-            <div class="current-time" id="current-time">Cargando fecha y hora...</div>
-        </div>
-        <div class="card card-calendario">
-             <h2>Calendario</h2>
-             <div class="calendar-container"> 
-                 <table class="calendar" id="calendar">
-                    <thead>
-                        <tr>
-                            <th>Dom</th>
-                            <th>Lun</th>
-                            <th>Mar</th>
-                            <th>Mié</th>
-                            <th>Jue</th>
-                            <th>Vie</th>
-                            <th>Sáb</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td colspan="7" style="text-align:center;">Cargando calendario...</td>
-                        </tr>
-                    </tbody>
-                </table>
-             </div>
-        </div>
+<label>Upload Main Image</label>
+<input type="file" id="mainImageInput" accept="image/*">
 
-        <div class="card">
-            <p>En este mundo moderno, mantenerse actualizado con la fecha de hoy es necesario para planificar, programar y mantenerse organizado. Si desea buscar qué fecha es hoy, preguntándose qué días son hoy, entonces necesita saber la hora y la fecha actuales, cuando tiene la información correcta en su colección se asegura de estar siempre en el camino correcto.</br>
-            </br>
-            La fecha de hoy no es solo un número, refleja su conexión con eventos, hitos e incluso fechas límite. Si se pregunta sobre la fecha de hoy en números, la respuesta depende del mes y el año, destacando la representación numérica del día dentro del calendario.</br>
-            </br>
-            Cuando necesita realizar un seguimiento de las zonas horarias, planificar viajes o fechas especiales, o innovar formatos como la fecha de hoy en números, comprender los detalles del día puede hacer que su vida diaria sea más manejable y productiva.</p>
-        </div>
+<label>Date</label>
+<input type="text" id="dateInput" placeholder="Enter Date">
 
-        <div class="card">
-            <h2>Preguntas frecuentes</h2>
-            <div class="faq-container">
-                <details class="faq-item">
-                    <summary>¿Cómo puedo encontrar la fecha de hoy en números?</summary>
-                    <p>Es fácil convertir la fecha a un formato numérico. Por ejemplo, si hoy es 19 de octubre de 2024, la representación numérica sería la fecha actual.</p>
-                </details>
+<label>Headline</label>
+<textarea id="headlineInput" placeholder="Enter Headline"></textarea>
 
-                <details class="faq-item">
-                    <summary>¿Qué significa hoy?</summary>
-                    <p>Significa la fecha actual dentro del sistema de calendario que se utiliza. La fecha de hoy significa la fecha actual, relacionándola con días especiales, actividades y períodos de tiempo que suceden ahora.</p>
-                </details>
+<label>Subtext</label>
+<textarea id="subtextInput" placeholder="Enter Subtext"></textarea>
 
-                <details class="faq-item">
-                    <summary>¿Cómo puedo saber qué día de la semana es?</summary>
-                    <p>Usando un calendario puedes averiguar fácilmente qué días de la semana son, identificar la fecha en tu teléfono o tableta, preguntarle a un asistente virtual como Alexa, buscar fácilmente en línea la fecha y el mes de hoy. Todos los dispositivos muestran tanto la fecha como el día actuales automáticamente.</p>
-                </details>
-            </div>
-        </div>
-    </main>
+<button type="button" onclick="downloadCover()">Download Cover</button>
+</div>
 
-    <div class="fb-like" 
-         data-href="https://fechadehoy.net/" 
-         data-width="" 
-         data-layout="standard" 
-         data-action="like" 
-         data-size="small" 
-         data-share="true"
-         style="margin: 0 auto; display: table;">
-    </div>
+<div class="preview">
+<div id="cover">
 
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v18.0" nonce=""></script>
+<div class="top">
+<img id="logoPreview" />
+<div class="date" id="datePreview">Date Here</div>
+</div>
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "¿Cómo puedo encontrar la fecha de hoy en números?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Es fácil convertir la fecha a un formato numérico. Por ejemplo, si hoy es 19 de octubre de 2024, la representación numérica sería la fecha actual."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Qué significa hoy?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Significa la fecha actual dentro del sistema de calendario que se utiliza. La fecha de hoy significa la fecha actual, relacionándola con días especiales, actividades y períodos de tiempo que suceden ahora."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Cómo puedo saber qué día de la semana es?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Usando un calendario puedes averiguar fácilmente qué días de la semana son, identificar la fecha en tu teléfono o tableta, preguntarle a un asistente virtual como Alexa, buscar fácilmente en línea la fecha y el mes de hoy. Todos los dispositivos muestran tanto la fecha como el día actuales automáticamente."
-          }
-        }
-      ]
-    }
-    </script>
+<div class="image-box">
+<span id="imageText">Image Here</span>
+<img id="mainImagePreview" />
+</div>
 
-    <footer class="footer">
-        <p> &copy; 2025 Fechadehoy. Todos los derechos reservados.</p>
-    <a href="https://whatistodaydate.com/" style="color: white;">Today Date</a> -
-  <a href="https://qdiaeshoy.com/" style="color: white;">Qué día es hoy</a> -
-  <a href="https://calculer-m2.ovh/" style="color: white;">Calculer m2</a> -
-  <a href="https://calculadorasonline.net/" style="color: white;">Calculadoras Online</a> -
-  <a href="https://calcul-au-m2.ovh/" style="color: white;">Calculer une Surface</a> -
-  <a href="https://calcule-en-m2.ovh/" style="color: white;">Calcule en m2</a> -
-  <a href="https://calculer-le-m2.ovh/" style="color: white;">Calculer le m2</a> -
-  <a href="https://calculatrice.ovh/" style="color: white;">Calculatrice</a>
-    </footer>
+<div class="headline">
+<h2 id="headlinePreview">Headline Here</h2>
+<p id="subtextPreview">Subtext Here</p>
+</div>
 
-    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
-        <svg id="theme-toggle-dark-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style="display: none;">
-            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-        </svg>
-        <svg id="theme-toggle-light-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 14.95l.707-.707a1 1 0 10-1.414-1.414l-.707.707a1 1 0 001.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
-        </svg>
-    </button>
+<div class="footer">yourwebsite.com</div>
 
-    <script src="/script.js" defer></script>
+</div>
+</div>
+
+</div>
+
+<script>
+function readImage(input, targetId, hideTextId){
+  if(!input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    document.getElementById(targetId).src = e.target.result;
+    if(hideTextId) document.getElementById(hideTextId).style.display='none';
+  }
+  reader.readAsDataURL(input.files[0]);
+}
+
+document.getElementById('logoInput').addEventListener('change',function(){
+  readImage(this,'logoPreview');
+});
+
+document.getElementById('mainImageInput').addEventListener('change',function(){
+  readImage(this,'mainImagePreview','imageText');
+});
+
+document.getElementById('dateInput').addEventListener('input',function(){
+  document.getElementById('datePreview').innerText = this.value || 'Date Here';
+});
+
+document.getElementById('headlineInput').addEventListener('input',function(){
+  document.getElementById('headlinePreview').innerText = this.value || 'Headline Here';
+});
+
+document.getElementById('subtextInput').addEventListener('input',function(){
+  document.getElementById('subtextPreview').innerText = this.value || 'Subtext Here';
+});
+
+function downloadCover(){
+  html2canvas(document.getElementById('cover'),{scale:2}).then(function(canvas){
+    const link = document.createElement('a');
+    link.download = 'news-cover.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+}
+</script>
+
 </body>
-
 </html>
