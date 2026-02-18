@@ -172,6 +172,23 @@ headlineStyle.onchange=function(){
  else headlinePreview.style.fontFamily='Poppins';
 }
 
+// AUTO FONT RESIZE FUNCTION
+function autoResizeHeadline(){
+ const el = document.getElementById('headlinePreview');
+ let fontSize = 42;
+ el.style.fontSize = fontSize + 'px';
+
+ while(el.scrollHeight > el.offsetHeight && fontSize > 18){
+   fontSize--;
+   el.style.fontSize = fontSize + 'px';
+ }
+}
+
+headlineInput.addEventListener('input', ()=>{
+ headlinePreview.innerText = headlineInput.value || 'HEADLINE HERE';
+ autoResizeHeadline();
+});
+
 function downloadBanner(){
  html2canvas(document.getElementById('banner'),{scale:4,useCORS:true}).then(canvas=>{
   const link=document.createElement('a');
