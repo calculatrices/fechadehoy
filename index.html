@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ultimate Breaking News Generator</title>
+<title>Ultimate Breaking News Generator PRO</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800;900&family=Teko:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800;900&family=Teko:wght@600;700&family=Anton&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0b0b0b;font-family:'Poppins',sans-serif;color:#fff;padding:30px}
@@ -38,6 +38,7 @@ body{background:#0b0b0b;font-family:'Poppins',sans-serif;color:#fff;padding:30px
 #banner{
  width:750px;
  height:1000px;
+ background:radial-gradient(circle at top,#ff2a2a,#4a0000);
  background-size:cover;
  background-position:center;
  border-radius:35px;
@@ -74,7 +75,7 @@ body{background:#0b0b0b;font-family:'Poppins',sans-serif;color:#fff;padding:30px
  margin-top:50px;padding:35px;border-radius:25px;
  background:linear-gradient(90deg,#8b0000,#ff0000,#8b0000);
 }
-.headline-section h1{font-size:42px;font-weight:900;text-transform:uppercase}
+.headline-section h1{font-size:42px;font-weight:900;text-transform:uppercase;transition:.3s}
 .subtext{margin-top:18px;background:#222;padding:14px;border-radius:15px;font-size:20px}
 
 /* SUBTITLE BUTTON */
@@ -87,10 +88,10 @@ body{background:#0b0b0b;font-family:'Poppins',sans-serif;color:#fff;padding:30px
  font-weight:800;
 }
 
-/* WEBSITE */
+/* WEBSITE LOWER POSITION */
 .website{
  position:absolute;
- bottom:60px;
+ bottom:25px; /* moved lower */
  right:45px;
  font-size:22px;
  font-weight:700;
@@ -102,10 +103,17 @@ body{background:#0b0b0b;font-family:'Poppins',sans-serif;color:#fff;padding:30px
 <div class="wrapper">
 
 <div class="panel">
-<h2>Ultimate Breaking News</h2>
+<h2>Ultimate Breaking News PRO</h2>
 
-<label>Background Image</label>
+<label>Background Image Upload</label>
 <input type="file" id="bgInput" accept="image/*">
+
+<label>Background Preset</label>
+<select id="bgPreset">
+<option value="red">Default Red</option>
+<option value="dark">Dark Studio</option>
+<option value="fire">Fire Red</option>
+</select>
 
 <label>Upload Logo</label>
 <input type="file" id="logoInput" accept="image/*">
@@ -119,10 +127,18 @@ body{background:#0b0b0b;font-family:'Poppins',sans-serif;color:#fff;padding:30px
 <label>Headline</label>
 <textarea id="headlineInput"></textarea>
 
-<label>Headline Style</label>
+<label>Headline Font Style</label>
 <select id="headlineStyle">
-<option value="poppins">Default Bold</option>
-<option value="teko">Teko Style</option>
+<option value="poppins">Poppins Bold</option>
+<option value="teko">Teko</option>
+<option value="anton">Anton Heavy</option>
+</select>
+
+<label>Headline Color</label>
+<select id="headlineColor">
+<option value="#ffffff">White</option>
+<option value="#ffeb3b">Yellow</option>
+<option value="#00ffff">Cyan</option>
 </select>
 
 <label>Subtext</label>
@@ -138,7 +154,7 @@ body{background:#0b0b0b;font-family:'Poppins',sans-serif;color:#fff;padding:30px
 </div>
 
 <div class="preview-area">
-<div id="banner" style="background:radial-gradient(circle at top,#ff2a2a,#4a0000);">
+<div id="banner">
 
 <div class="breaking-header">
 <div class="logo-box"><img id="logoPreview"></div>
@@ -183,6 +199,12 @@ bgInput.onchange=function(){
  reader.readAsDataURL(this.files[0]);
 }
 
+bgPreset.onchange=function(){
+ if(this.value==='red') banner.style.background='radial-gradient(circle at top,#ff2a2a,#4a0000)';
+ if(this.value==='dark') banner.style.background='linear-gradient(180deg,#111,#330000)';
+ if(this.value==='fire') banner.style.background='linear-gradient(180deg,#ff0000,#ff6600,#660000)';
+}
+
 logoInput.onchange=()=>loadImage(logoInput,'logoPreview');
 mainImageInput.onchange=()=>loadImage(mainImageInput,'mainImagePreview','imageText');
 
@@ -193,17 +215,19 @@ subtitleInput.oninput=()=>subtitleBtn.innerText=subtitleInput.value||'বিস�
 websiteInput.oninput=()=>websitePreview.innerText=websiteInput.value||'area71.com';
 
 headlineStyle.onchange=function(){
- if(this.value==='teko'){
-  headlinePreview.style.fontFamily='Teko';
- }else{
-  headlinePreview.style.fontFamily='Poppins';
- }
+ if(this.value==='teko') headlinePreview.style.fontFamily='Teko';
+ else if(this.value==='anton') headlinePreview.style.fontFamily='Anton';
+ else headlinePreview.style.fontFamily='Poppins';
+}
+
+headlineColor.onchange=function(){
+ headlinePreview.style.color=this.value;
 }
 
 function downloadBanner(){
  html2canvas(document.getElementById('banner'),{scale:4,useCORS:true}).then(canvas=>{
   const link=document.createElement('a');
-  link.download='ultimate-breaking-news.png';
+  link.download='ultimate-breaking-news-pro.png';
   link.href=canvas.toDataURL('image/png');
   link.click();
  });
