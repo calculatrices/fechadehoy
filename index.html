@@ -3,90 +3,209 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Exact Breaking News Banner</title>
+<title>Breaking News Generator</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#111;font-family:'Poppins',sans-serif;display:flex;flex-direction:column;align-items:center;padding:20px;color:#fff}
-h1{margin-bottom:20px;font-weight:800}
-.container{display:flex;gap:40px;flex-wrap:wrap;width:100%;max-width:1400px}
-.controls{flex:1;min-width:320px;background:#1c1c1c;padding:25px;border-radius:20px}
-.controls input,.controls textarea{width:100%;padding:10px;margin:8px 0 15px;border-radius:10px;border:none;font-family:'Poppins'}
-.controls textarea{height:80px;resize:none}
-button{width:100%;padding:14px;background:#e10600;border:none;border-radius:12px;color:#fff;font-weight:700;cursor:pointer}
-button:hover{background:#b80000}
-.preview{flex:1;display:flex;justify-content:center}
-
-/* EXACT DESIGN */
-#cover{
-width:540px;
-height:960px;
-background:linear-gradient(180deg,#c40000 0%,#7a0000 40%,#3a0000 100%);
-border-radius:25px;
-position:relative;
-overflow:hidden;
-padding:25px;
+body{
+  font-family:'Poppins',sans-serif;
+  background:#0e0e0e;
+  color:#fff;
+  padding:30px;
+}
+.wrapper{
+  display:flex;
+  gap:40px;
+  max-width:1600px;
+  margin:auto;
 }
 
-/* BREAKING BAR */
-.breaking-bar{
-display:flex;
-align-items:center;
-margin-bottom:20px;
+/* LEFT PANEL */
+.panel{
+  width:420px;
+  background:linear-gradient(180deg,#1a1a1a,#111);
+  padding:30px;
+  border-radius:25px;
+  box-shadow:0 0 40px rgba(255,0,0,.4);
 }
-.logo-box{width:70px;height:70px;background:#e10600;display:flex;align-items:center;justify-content:center;margin-right:10px}
-.logo-box img{max-width:60px;max-height:60px}
-.breaking-text{flex:1;background:linear-gradient(90deg,#111,#e10600);padding:15px 20px;font-weight:800;font-size:24px}
+.panel h2{
+  margin-bottom:25px;
+  font-weight:800;
+  font-size:26px;
+  background:linear-gradient(90deg,#ff3c00,#ff0000);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.panel label{font-size:14px;opacity:.8}
+.panel input,.panel textarea{
+  width:100%;
+  padding:12px;
+  margin:8px 0 18px;
+  border:none;
+  border-radius:12px;
+  background:#2a2a2a;
+  color:#fff;
+  font-family:'Poppins';
+}
+.panel textarea{height:80px;resize:none}
+.panel button{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(90deg,#ff0000,#c40000);
+  color:#fff;
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 10px 30px rgba(255,0,0,.6);
+}
 
-.date-pill{position:absolute;top:30px;right:25px;background:#e10600;padding:8px 18px;border-radius:30px;font-weight:700}
+/* RIGHT PREVIEW */
+.preview-area{flex:1;display:flex;justify-content:center}
 
-/* IMAGE FRAME */
-.image-frame{margin-top:60px;border:6px solid #fff;border-radius:10px;overflow:hidden;height:380px;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;position:relative}
+#banner{
+  width:700px;
+  height:900px;
+  background:radial-gradient(circle at top,#ff1a1a,#5c0000 70%);
+  border-radius:30px;
+  padding:35px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 40px 100px rgba(255,0,0,.5);
+}
+
+/* Breaking Header */
+.breaking-header{
+  display:flex;
+  align-items:center;
+  margin-bottom:20px;
+}
+.logo-box{
+  width:80px;height:80px;
+  background:#ff0000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-right:15px;
+}
+.logo-box img{max-width:70px;max-height:70px}
+.breaking-title{
+  flex:1;
+  background:linear-gradient(90deg,#111,#ff0000);
+  padding:18px 25px;
+  font-size:28px;
+  font-weight:800;
+}
+
+.date-pill{
+  position:absolute;
+  top:40px;
+  right:35px;
+  background:#ff0000;
+  padding:10px 20px;
+  border-radius:30px;
+  font-weight:700;
+}
+
+/* Image Frame */
+.image-frame{
+  margin-top:60px;
+  height:420px;
+  border:6px solid #fff;
+  border-radius:15px;
+  overflow:hidden;
+  background:rgba(255,255,255,.1);
+  position:relative;
+}
 .image-frame img{width:100%;height:100%;object-fit:cover}
-.image-placeholder{position:absolute;font-size:28px;font-weight:700;opacity:.6}
+.image-placeholder{
+  position:absolute;
+  width:100%;height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:32px;
+  font-weight:700;
+  opacity:.6;
+}
 
-/* HEADLINE METAL BANNER */
-.headline-banner{margin-top:40px;background:linear-gradient(90deg,#7a0000,#ff0000,#7a0000);padding:25px;border-radius:15px;box-shadow:0 10px 25px rgba(0,0,0,.6)}
-.headline-banner h2{font-size:34px;font-weight:800}
+/* Headline Section */
+.headline-section{
+  margin-top:40px;
+  background:linear-gradient(90deg,#7a0000,#ff0000,#7a0000);
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 15px 40px rgba(0,0,0,.7);
+}
+.headline-section h1{
+  font-size:36px;
+  font-weight:800;
+}
+.subtext{
+  margin-top:18px;
+  background:linear-gradient(90deg,#222,#444);
+  padding:14px;
+  border-radius:12px;
+  font-size:18px;
+}
 
-.subtext-ribbon{margin-top:15px;background:linear-gradient(90deg,#222,#444);padding:12px;border-radius:10px;font-size:18px}
-
-.website{position:absolute;bottom:20px;right:25px;font-size:18px;font-weight:600;opacity:.9}
+.website{
+  position:absolute;
+  bottom:25px;
+  right:35px;
+  font-size:20px;
+  font-weight:600;
+}
 </style>
 </head>
 <body>
-<h1>Exact Breaking News Banner</h1>
-<div class="container">
 
-<div class="controls">
-<input type="file" id="logoInput" accept="image/*" placeholder="Upload Logo">
-<input type="file" id="mainImageInput" accept="image/*" placeholder="Upload Main Image">
+<div class="wrapper">
+
+<div class="panel">
+<h2>Breaking News Generator</h2>
+
+<label>Upload Logo</label>
+<input type="file" id="logoInput" accept="image/*">
+
+<label>Upload Main Image</label>
+<input type="file" id="mainImageInput" accept="image/*">
+
+<label>Date</label>
 <input type="text" id="dateInput" placeholder="Enter Date">
+
+<label>Headline</label>
 <textarea id="headlineInput" placeholder="Enter Headline"></textarea>
+
+<label>Subtext</label>
 <textarea id="subtextInput" placeholder="Enter Subtext"></textarea>
+
+<label>Website</label>
 <input type="text" id="websiteInput" placeholder="Enter Website">
-<button onclick="downloadCover()">Download HD Banner</button>
+
+<button onclick="downloadBanner()">Download HD Banner</button>
 </div>
 
-<div class="preview">
-<div id="cover">
+<div class="preview-area">
+<div id="banner">
 
-<div class="breaking-bar">
+<div class="breaking-header">
 <div class="logo-box"><img id="logoPreview"></div>
-<div class="breaking-text">BREAKING NEWS</div>
+<div class="breaking-title">BREAKING NEWS</div>
 </div>
 
-<div class="date-pill" id="datePreview">DATE HERE</div>
+<div class="date-pill" id="datePreview">14/10/2026</div>
 
 <div class="image-frame">
 <div class="image-placeholder" id="imageText">YOUR IMAGE HERE</div>
 <img id="mainImagePreview">
 </div>
 
-<div class="headline-banner">
-<h2 id="headlinePreview">HEADLINE HERE</h2>
-<div class="subtext-ribbon" id="subtextPreview">SUBTEXT HERE</div>
+<div class="headline-section">
+<h1 id="headlinePreview">YOUR HEADLINE HERE</h1>
+<div class="subtext" id="subtextPreview">YOUR SUBTEXT HERE</div>
 </div>
 
 <div class="website" id="websitePreview">area71.com</div>
@@ -97,28 +216,30 @@ margin-bottom:20px;
 </div>
 
 <script>
-function readImage(input,target,hide){
+function loadImage(input,target,hide){
  if(!input.files[0]) return;
  const reader=new FileReader();
- reader.onload=function(e){
-   document.getElementById(target).src=e.target.result;
-   if(hide) document.getElementById(hide).style.display='none';
+ reader.onload=e=>{
+  document.getElementById(target).src=e.target.result;
+  if(hide) document.getElementById(hide).style.display='none';
  }
  reader.readAsDataURL(input.files[0]);
 }
-logoInput.onchange=function(){readImage(this,'logoPreview');}
-mainImageInput.onchange=function(){readImage(this,'mainImagePreview','imageText');}
-dateInput.oninput=function(){datePreview.innerText=this.value||'DATE HERE';}
-headlineInput.oninput=function(){headlinePreview.innerText=this.value||'HEADLINE HERE';}
-subtextInput.oninput=function(){subtextPreview.innerText=this.value||'SUBTEXT HERE';}
-websiteInput.oninput=function(){websitePreview.innerText=this.value||'area71.com';}
 
-function downloadCover(){
- html2canvas(document.getElementById('cover'),{scale:3}).then(function(canvas){
-   const link=document.createElement('a');
-   link.download='breaking-news-banner.png';
-   link.href=canvas.toDataURL('image/png');
-   link.click();
+logoInput.onchange=()=>loadImage(logoInput,'logoPreview');
+mainImageInput.onchange=()=>loadImage(mainImageInput,'mainImagePreview','imageText');
+
+dateInput.oninput=()=>datePreview.innerText=dateInput.value||'14/10/2026';
+headlineInput.oninput=()=>headlinePreview.innerText=headlineInput.value||'YOUR HEADLINE HERE';
+subtextInput.oninput=()=>subtextPreview.innerText=subtextInput.value||'YOUR SUBTEXT HERE';
+websiteInput.oninput=()=>websitePreview.innerText=websiteInput.value||'area71.com';
+
+function downloadBanner(){
+ html2canvas(document.getElementById('banner'),{scale:3,useCORS:true}).then(canvas=>{
+  const link=document.createElement('a');
+  link.download='breaking-news-banner.png';
+  link.href=canvas.toDataURL('image/png');
+  link.click();
  });
 }
 </script>
