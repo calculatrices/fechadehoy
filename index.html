@@ -3,132 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cinematic Breaking News Generator</title>
+<title>Ultimate Breaking News Generator</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800;900&family=Teko:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family:'Poppins',sans-serif;
-  background:#0a0a0a;
-  padding:30px;
-  color:#fff;
-}
-.wrapper{display:flex;gap:40px;max-width:1600px;margin:auto}
+body{background:#0b0b0b;font-family:'Poppins',sans-serif;color:#fff;padding:30px}
+.wrapper{display:flex;gap:40px;max-width:1700px;margin:auto}
+
+/* LEFT PANEL */
 .panel{
-  width:420px;
-  background:linear-gradient(180deg,#1b1b1b,#111);
-  padding:30px;
-  border-radius:25px;
-  box-shadow:0 0 50px rgba(255,0,0,.4);
+ width:430px;
+ background:#141414;
+ padding:30px;
+ border-radius:25px;
+ box-shadow:0 0 50px rgba(255,0,0,.3);
 }
-.panel h2{margin-bottom:25px;font-size:26px;font-weight:900;background:linear-gradient(90deg,#ff3c00,#ff0000);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.panel input,.panel textarea{
-  width:100%;padding:12px;margin:8px 0 18px;border-radius:12px;border:none;background:#2a2a2a;color:#fff;font-family:'Poppins'
+.panel h2{margin-bottom:25px;font-size:26px;font-weight:900}
+.panel label{font-size:14px;opacity:.8}
+.panel input,.panel textarea,.panel select{
+ width:100%;padding:12px;margin:8px 0 18px;border-radius:12px;border:none;
+ background:#222;color:#fff;font-family:'Poppins'
 }
 .panel textarea{height:80px;resize:none}
 .panel button{
-  width:100%;padding:16px;border:none;border-radius:15px;background:linear-gradient(90deg,#ff0000,#c40000);
-  font-weight:800;color:#fff;font-size:16px;cursor:pointer;box-shadow:0 15px 40px rgba(255,0,0,.6)
+ width:100%;padding:15px;border:none;border-radius:15px;
+ background:linear-gradient(90deg,#ff0000,#b80000);
+ font-weight:800;color:#fff;font-size:16px;cursor:pointer;
+ box-shadow:0 15px 40px rgba(255,0,0,.6)
 }
 
+/* PREVIEW */
 .preview-area{flex:1;display:flex;justify-content:center}
-
 #banner{
-  width:750px;
-  height:1000px;
-  background:
-    radial-gradient(circle at top,#ff2a2a 0%,#a00000 40%,#4a0000 100%),
-    url('https://i.imgur.com/8Qf6F5R.png');
-  background-blend-mode:overlay;
-  border-radius:35px;
-  padding:40px;
-  position:relative;
-  overflow:hidden;
-  box-shadow:0 50px 120px rgba(255,0,0,.6);
+ width:750px;
+ height:1000px;
+ background-size:cover;
+ background-position:center;
+ border-radius:35px;
+ padding:40px;
+ position:relative;
+ overflow:hidden;
+ box-shadow:0 50px 120px rgba(255,0,0,.6);
 }
 
-/* Glow Lines */
-#banner::before{
-  content:"";
-  position:absolute;
-  top:0;left:-50%;
-  width:200%;height:200%;
-  background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.15) 50%,transparent 60%);
-  transform:rotate(25deg);
-}
-
-/* Breaking Header */
-.breaking-header{display:flex;align-items:center;margin-bottom:25px}
-.logo-box{width:90px;height:90px;background:#ff0000;display:flex;align-items:center;justify-content:center;margin-right:15px;box-shadow:0 0 20px rgba(255,0,0,.8)}
-.logo-box img{max-width:80px;max-height:80px}
+/* HEADER */
+.breaking-header{display:flex;align-items:center;margin-bottom:20px}
+.logo-box{width:90px;height:90px;background:#ff0000;display:flex;align-items:center;justify-content:center;margin-right:15px}
+.logo-box img{max-width:80px}
 .breaking-title{
-  flex:1;
-  background:linear-gradient(90deg,#111,#ff0000);
-  padding:20px 30px;
-  font-size:32px;
-  font-weight:900;
-  letter-spacing:2px;
-  box-shadow:0 10px 25px rgba(0,0,0,.6);
+ flex:1;background:linear-gradient(90deg,#111,#ff0000);
+ padding:20px 30px;font-size:32px;font-weight:900;
 }
-
 .date-pill{
-  position:absolute;
-  top:50px;
-  right:45px;
-  background:#ff0000;
-  padding:12px 25px;
-  border-radius:35px;
-  font-weight:800;
-  font-size:18px;
-  box-shadow:0 0 25px rgba(255,0,0,.9);
+ position:absolute;top:50px;right:45px;
+ background:#ff0000;padding:10px 25px;border-radius:30px;
+ font-weight:800;font-size:18px;
 }
 
-/* Image Frame */
+/* IMAGE */
 .image-frame{
-  margin-top:80px;
-  height:480px;
-  border:8px solid rgba(255,255,255,.9);
-  border-radius:20px;
-  overflow:hidden;
-  position:relative;
-  box-shadow:0 20px 60px rgba(0,0,0,.7);
+ margin-top:80px;height:450px;border:8px solid #fff;
+ border-radius:20px;overflow:hidden;position:relative
 }
 .image-frame img{width:100%;height:100%;object-fit:cover}
-.image-placeholder{
-  position:absolute;width:100%;height:100%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:36px;font-weight:800;opacity:.5
-}
+.image-placeholder{position:absolute;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;opacity:.5}
 
-/* Headline Section */
+/* HEADLINE */
 .headline-section{
-  margin-top:50px;
-  background:linear-gradient(90deg,#8b0000,#ff0000,#8b0000);
-  padding:35px;
-  border-radius:25px;
-  box-shadow:0 25px 70px rgba(0,0,0,.8);
+ margin-top:50px;padding:35px;border-radius:25px;
+ background:linear-gradient(90deg,#8b0000,#ff0000,#8b0000);
 }
-.headline-section h1{
-  font-size:42px;
-  font-weight:900;
-  text-transform:uppercase;
-  text-shadow:0 5px 20px rgba(0,0,0,.8);
-}
-.subtext{
-  margin-top:20px;
-  background:linear-gradient(90deg,#111,#444);
-  padding:16px;
-  border-radius:15px;
-  font-size:20px;
+.headline-section h1{font-size:42px;font-weight:900;text-transform:uppercase}
+.subtext{margin-top:18px;background:#222;padding:14px;border-radius:15px;font-size:20px}
+
+/* SUBTITLE BUTTON */
+.subtitle-btn{
+ margin-top:20px;
+ display:inline-block;
+ background:linear-gradient(90deg,#ff9900,#ff0000);
+ padding:12px 25px;
+ border-radius:30px;
+ font-weight:800;
 }
 
+/* WEBSITE */
 .website{
-  position:absolute;
-  bottom:35px;
-  right:45px;
-  font-size:22px;
-  font-weight:700;
+ position:absolute;
+ bottom:60px;
+ right:45px;
+ font-size:22px;
+ font-weight:700;
 }
 </style>
 </head>
@@ -137,18 +102,43 @@ body{
 <div class="wrapper">
 
 <div class="panel">
-<h2>Cinematic Breaking News</h2>
+<h2>Ultimate Breaking News</h2>
+
+<label>Background Image</label>
+<input type="file" id="bgInput" accept="image/*">
+
+<label>Upload Logo</label>
 <input type="file" id="logoInput" accept="image/*">
+
+<label>Main Image</label>
 <input type="file" id="mainImageInput" accept="image/*">
-<input type="text" id="dateInput" placeholder="Enter Date">
-<textarea id="headlineInput" placeholder="Enter Headline"></textarea>
-<textarea id="subtextInput" placeholder="Enter Subtext"></textarea>
-<input type="text" id="websiteInput" placeholder="Enter Website">
+
+<label>Date</label>
+<input type="text" id="dateInput">
+
+<label>Headline</label>
+<textarea id="headlineInput"></textarea>
+
+<label>Headline Style</label>
+<select id="headlineStyle">
+<option value="poppins">Default Bold</option>
+<option value="teko">Teko Style</option>
+</select>
+
+<label>Subtext</label>
+<textarea id="subtextInput"></textarea>
+
+<label>Subtitle Button Text</label>
+<input type="text" id="subtitleInput" value="বিস্তারিত কমেন্টে">
+
+<label>Website</label>
+<input type="text" id="websiteInput" value="area71.com">
+
 <button onclick="downloadBanner()">Download Ultra HD</button>
 </div>
 
 <div class="preview-area">
-<div id="banner">
+<div id="banner" style="background:radial-gradient(circle at top,#ff2a2a,#4a0000);">
 
 <div class="breaking-header">
 <div class="logo-box"><img id="logoPreview"></div>
@@ -165,6 +155,7 @@ body{
 <div class="headline-section">
 <h1 id="headlinePreview">HEADLINE HERE</h1>
 <div class="subtext" id="subtextPreview">SUBTEXT HERE</div>
+<div class="subtitle-btn" id="subtitleBtn">বিস্তারিত কমেন্টে</div>
 </div>
 
 <div class="website" id="websitePreview">area71.com</div>
@@ -184,17 +175,35 @@ function loadImage(input,target,hide){
  }
  reader.readAsDataURL(input.files[0]);
 }
+
+bgInput.onchange=function(){
+ if(!this.files[0]) return;
+ const reader=new FileReader();
+ reader.onload=e=>{banner.style.background=`url(${e.target.result}) center/cover`}
+ reader.readAsDataURL(this.files[0]);
+}
+
 logoInput.onchange=()=>loadImage(logoInput,'logoPreview');
 mainImageInput.onchange=()=>loadImage(mainImageInput,'mainImagePreview','imageText');
+
 dateInput.oninput=()=>datePreview.innerText=dateInput.value||'DATE HERE';
 headlineInput.oninput=()=>headlinePreview.innerText=headlineInput.value||'HEADLINE HERE';
 subtextInput.oninput=()=>subtextPreview.innerText=subtextInput.value||'SUBTEXT HERE';
+subtitleInput.oninput=()=>subtitleBtn.innerText=subtitleInput.value||'বিস্তারিত কমেন্টে';
 websiteInput.oninput=()=>websitePreview.innerText=websiteInput.value||'area71.com';
+
+headlineStyle.onchange=function(){
+ if(this.value==='teko'){
+  headlinePreview.style.fontFamily='Teko';
+ }else{
+  headlinePreview.style.fontFamily='Poppins';
+ }
+}
 
 function downloadBanner(){
  html2canvas(document.getElementById('banner'),{scale:4,useCORS:true}).then(canvas=>{
   const link=document.createElement('a');
-  link.download='cinematic-breaking-news.png';
+  link.download='ultimate-breaking-news.png';
   link.href=canvas.toDataURL('image/png');
   link.click();
  });
