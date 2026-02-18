@@ -3,160 +3,132 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Breaking News Generator</title>
+<title>Cinematic Breaking News Generator</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{
   font-family:'Poppins',sans-serif;
-  background:#0e0e0e;
-  color:#fff;
+  background:#0a0a0a;
   padding:30px;
+  color:#fff;
 }
-.wrapper{
-  display:flex;
-  gap:40px;
-  max-width:1600px;
-  margin:auto;
-}
-
-/* LEFT PANEL */
+.wrapper{display:flex;gap:40px;max-width:1600px;margin:auto}
 .panel{
   width:420px;
-  background:linear-gradient(180deg,#1a1a1a,#111);
+  background:linear-gradient(180deg,#1b1b1b,#111);
   padding:30px;
   border-radius:25px;
-  box-shadow:0 0 40px rgba(255,0,0,.4);
+  box-shadow:0 0 50px rgba(255,0,0,.4);
 }
-.panel h2{
-  margin-bottom:25px;
-  font-weight:800;
-  font-size:26px;
-  background:linear-gradient(90deg,#ff3c00,#ff0000);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-.panel label{font-size:14px;opacity:.8}
+.panel h2{margin-bottom:25px;font-size:26px;font-weight:900;background:linear-gradient(90deg,#ff3c00,#ff0000);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .panel input,.panel textarea{
-  width:100%;
-  padding:12px;
-  margin:8px 0 18px;
-  border:none;
-  border-radius:12px;
-  background:#2a2a2a;
-  color:#fff;
-  font-family:'Poppins';
+  width:100%;padding:12px;margin:8px 0 18px;border-radius:12px;border:none;background:#2a2a2a;color:#fff;font-family:'Poppins'
 }
 .panel textarea{height:80px;resize:none}
 .panel button{
-  width:100%;
-  padding:15px;
-  border:none;
-  border-radius:14px;
-  background:linear-gradient(90deg,#ff0000,#c40000);
-  color:#fff;
-  font-weight:700;
-  font-size:16px;
-  cursor:pointer;
-  box-shadow:0 10px 30px rgba(255,0,0,.6);
+  width:100%;padding:16px;border:none;border-radius:15px;background:linear-gradient(90deg,#ff0000,#c40000);
+  font-weight:800;color:#fff;font-size:16px;cursor:pointer;box-shadow:0 15px 40px rgba(255,0,0,.6)
 }
 
-/* RIGHT PREVIEW */
 .preview-area{flex:1;display:flex;justify-content:center}
 
 #banner{
-  width:700px;
-  height:900px;
-  background:radial-gradient(circle at top,#ff1a1a,#5c0000 70%);
-  border-radius:30px;
-  padding:35px;
+  width:750px;
+  height:1000px;
+  background:
+    radial-gradient(circle at top,#ff2a2a 0%,#a00000 40%,#4a0000 100%),
+    url('https://i.imgur.com/8Qf6F5R.png');
+  background-blend-mode:overlay;
+  border-radius:35px;
+  padding:40px;
   position:relative;
   overflow:hidden;
-  box-shadow:0 40px 100px rgba(255,0,0,.5);
+  box-shadow:0 50px 120px rgba(255,0,0,.6);
+}
+
+/* Glow Lines */
+#banner::before{
+  content:"";
+  position:absolute;
+  top:0;left:-50%;
+  width:200%;height:200%;
+  background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.15) 50%,transparent 60%);
+  transform:rotate(25deg);
 }
 
 /* Breaking Header */
-.breaking-header{
-  display:flex;
-  align-items:center;
-  margin-bottom:20px;
-}
-.logo-box{
-  width:80px;height:80px;
-  background:#ff0000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-right:15px;
-}
-.logo-box img{max-width:70px;max-height:70px}
+.breaking-header{display:flex;align-items:center;margin-bottom:25px}
+.logo-box{width:90px;height:90px;background:#ff0000;display:flex;align-items:center;justify-content:center;margin-right:15px;box-shadow:0 0 20px rgba(255,0,0,.8)}
+.logo-box img{max-width:80px;max-height:80px}
 .breaking-title{
   flex:1;
   background:linear-gradient(90deg,#111,#ff0000);
-  padding:18px 25px;
-  font-size:28px;
-  font-weight:800;
+  padding:20px 30px;
+  font-size:32px;
+  font-weight:900;
+  letter-spacing:2px;
+  box-shadow:0 10px 25px rgba(0,0,0,.6);
 }
 
 .date-pill{
   position:absolute;
-  top:40px;
-  right:35px;
+  top:50px;
+  right:45px;
   background:#ff0000;
-  padding:10px 20px;
-  border-radius:30px;
-  font-weight:700;
+  padding:12px 25px;
+  border-radius:35px;
+  font-weight:800;
+  font-size:18px;
+  box-shadow:0 0 25px rgba(255,0,0,.9);
 }
 
 /* Image Frame */
 .image-frame{
-  margin-top:60px;
-  height:420px;
-  border:6px solid #fff;
-  border-radius:15px;
+  margin-top:80px;
+  height:480px;
+  border:8px solid rgba(255,255,255,.9);
+  border-radius:20px;
   overflow:hidden;
-  background:rgba(255,255,255,.1);
   position:relative;
+  box-shadow:0 20px 60px rgba(0,0,0,.7);
 }
 .image-frame img{width:100%;height:100%;object-fit:cover}
 .image-placeholder{
-  position:absolute;
-  width:100%;height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:32px;
-  font-weight:700;
-  opacity:.6;
+  position:absolute;width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px;font-weight:800;opacity:.5
 }
 
 /* Headline Section */
 .headline-section{
-  margin-top:40px;
-  background:linear-gradient(90deg,#7a0000,#ff0000,#7a0000);
-  padding:30px;
-  border-radius:20px;
-  box-shadow:0 15px 40px rgba(0,0,0,.7);
+  margin-top:50px;
+  background:linear-gradient(90deg,#8b0000,#ff0000,#8b0000);
+  padding:35px;
+  border-radius:25px;
+  box-shadow:0 25px 70px rgba(0,0,0,.8);
 }
 .headline-section h1{
-  font-size:36px;
-  font-weight:800;
+  font-size:42px;
+  font-weight:900;
+  text-transform:uppercase;
+  text-shadow:0 5px 20px rgba(0,0,0,.8);
 }
 .subtext{
-  margin-top:18px;
-  background:linear-gradient(90deg,#222,#444);
-  padding:14px;
-  border-radius:12px;
-  font-size:18px;
+  margin-top:20px;
+  background:linear-gradient(90deg,#111,#444);
+  padding:16px;
+  border-radius:15px;
+  font-size:20px;
 }
 
 .website{
   position:absolute;
-  bottom:25px;
-  right:35px;
-  font-size:20px;
-  font-weight:600;
+  bottom:35px;
+  right:45px;
+  font-size:22px;
+  font-weight:700;
 }
 </style>
 </head>
@@ -165,27 +137,14 @@ body{
 <div class="wrapper">
 
 <div class="panel">
-<h2>Breaking News Generator</h2>
-
-<label>Upload Logo</label>
+<h2>Cinematic Breaking News</h2>
 <input type="file" id="logoInput" accept="image/*">
-
-<label>Upload Main Image</label>
 <input type="file" id="mainImageInput" accept="image/*">
-
-<label>Date</label>
 <input type="text" id="dateInput" placeholder="Enter Date">
-
-<label>Headline</label>
 <textarea id="headlineInput" placeholder="Enter Headline"></textarea>
-
-<label>Subtext</label>
 <textarea id="subtextInput" placeholder="Enter Subtext"></textarea>
-
-<label>Website</label>
 <input type="text" id="websiteInput" placeholder="Enter Website">
-
-<button onclick="downloadBanner()">Download HD Banner</button>
+<button onclick="downloadBanner()">Download Ultra HD</button>
 </div>
 
 <div class="preview-area">
@@ -196,7 +155,7 @@ body{
 <div class="breaking-title">BREAKING NEWS</div>
 </div>
 
-<div class="date-pill" id="datePreview">14/10/2026</div>
+<div class="date-pill" id="datePreview">DATE HERE</div>
 
 <div class="image-frame">
 <div class="image-placeholder" id="imageText">YOUR IMAGE HERE</div>
@@ -204,8 +163,8 @@ body{
 </div>
 
 <div class="headline-section">
-<h1 id="headlinePreview">YOUR HEADLINE HERE</h1>
-<div class="subtext" id="subtextPreview">YOUR SUBTEXT HERE</div>
+<h1 id="headlinePreview">HEADLINE HERE</h1>
+<div class="subtext" id="subtextPreview">SUBTEXT HERE</div>
 </div>
 
 <div class="website" id="websitePreview">area71.com</div>
@@ -225,19 +184,17 @@ function loadImage(input,target,hide){
  }
  reader.readAsDataURL(input.files[0]);
 }
-
 logoInput.onchange=()=>loadImage(logoInput,'logoPreview');
 mainImageInput.onchange=()=>loadImage(mainImageInput,'mainImagePreview','imageText');
-
-dateInput.oninput=()=>datePreview.innerText=dateInput.value||'14/10/2026';
-headlineInput.oninput=()=>headlinePreview.innerText=headlineInput.value||'YOUR HEADLINE HERE';
-subtextInput.oninput=()=>subtextPreview.innerText=subtextInput.value||'YOUR SUBTEXT HERE';
+dateInput.oninput=()=>datePreview.innerText=dateInput.value||'DATE HERE';
+headlineInput.oninput=()=>headlinePreview.innerText=headlineInput.value||'HEADLINE HERE';
+subtextInput.oninput=()=>subtextPreview.innerText=subtextInput.value||'SUBTEXT HERE';
 websiteInput.oninput=()=>websitePreview.innerText=websiteInput.value||'area71.com';
 
 function downloadBanner(){
- html2canvas(document.getElementById('banner'),{scale:3,useCORS:true}).then(canvas=>{
+ html2canvas(document.getElementById('banner'),{scale:4,useCORS:true}).then(canvas=>{
   const link=document.createElement('a');
-  link.download='breaking-news-banner.png';
+  link.download='cinematic-breaking-news.png';
   link.href=canvas.toDataURL('image/png');
   link.click();
  });
