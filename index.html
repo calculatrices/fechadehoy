@@ -48,9 +48,11 @@ body{background:#0b0b0b;font-family:'Poppins',sans-serif;color:#fff;padding:30px
  text-transform:uppercase;
  line-height:1.2;
  word-break:break-word;
+ display:inline-block; /* FIX: prevent full width white block */
  background:linear-gradient(90deg,#ffffff,#ffeb3b,#00ffff);
+ background-clip:text;
  -webkit-background-clip:text;
- -webkit-text-fill-color:transparent;
+ color:transparent;
 }
 
 /* SINGLE LINE SUBTITLE + WEBSITE */
